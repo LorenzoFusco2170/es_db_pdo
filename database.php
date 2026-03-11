@@ -7,7 +7,7 @@
     $host = "localhost";
 
     //nome del database da utilizzare
-    $dbname = "email_informatica";
+    $dbname = "fuscodb";
 
     //username per accedere
     $user = "root";
