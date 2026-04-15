@@ -178,7 +178,7 @@ $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
 <header>
-    <h1>Gestione Donazioni</h1>
+    <h1 id="test2">Gestione Donazioni</h1>
     <p>Elenco di tutte le donazioni ricevute</p>
 </header>
 
