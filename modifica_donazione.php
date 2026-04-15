@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 40px 20px 60px;
         }
 
-        /* ── card form (uguale a dona.html) ── */
+        /* card form */
         .form-container {
             width: 100%;
             max-width: 500px;
@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: #a01919;
         }
 
-        /* ── bottone torna indietro ── */
+        /* bottone torna indietro */
         .home-button {
             display: inline-block;
             margin-top: 24px;
