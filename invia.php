@@ -48,7 +48,7 @@ $_SESSION["ultima_donazione"] = [
 ];
 
 // invia una email di notifica all'amministratore con i dati della donazione ricevuta
-$destinatario = "email@example.com"; // sostituire con l'email reale dell'amministratore
+$destinatario = "lorenzofusco483@gmail.com"; // email reale dell'amministratore
 $oggetto      = "Nuova donazione ricevuta - Vita Libera";
 $corpo        = "Hai ricevuto una nuova donazione:\n\n"
               . "Nome:    $nome $cognome\n"
