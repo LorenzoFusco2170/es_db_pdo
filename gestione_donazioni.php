@@ -24,8 +24,8 @@ $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .admin-bar a:hover { text-decoration:underline; }
 
         header { background-color: #bb1e1e; color: white; padding: 24px 20px 20px; text-align: center; }
-        header h1 { font-size: 2rem; margin-bottom: 6px; }
-        header p  { opacity: .85; }
+        header h1 { font-size: 2rem; margin-bottom: 6px; color: white; }
+        header p  { opacity: .85; color: white; }
 
         main { max-width: 960px; margin: 40px auto; padding: 0 20px 60px; }
 
@@ -136,7 +136,7 @@ $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
     </div>
 
-    <a href="dona.php" class="home-button">← Torna alla pagina donazioni</a>
+    <a href="dona.php" class="home-button"> Torna alla pagina donazioni</a>
 </main>
 
 <footer>

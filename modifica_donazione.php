@@ -1,12 +1,14 @@
 <?php
-// LOGIN + SESSIONE
+// include il file che controlla se l'utente è loggato come admin
+// se non lo è, viene rimandato automaticamente al login
 require_once "auth.php";
 require "database.php";
 
+// legge l'id dalla query string e lo converte in intero per sicurezza
 $id = (int)($_GET["id"] ?? 0);
 if ($id <= 0) { header("Location: gestione_donazioni.php"); exit; }
 
-// CRUD OPERAZIONE READ
+// recupera dal database la donazione corrispondente all'id ricevuto
 $stmt = $pdo->prepare("SELECT * FROM donazioni WHERE id = ?");
 $stmt->execute([$id]);
 $d = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -14,8 +16,9 @@ if (!$d) { header("Location: gestione_donazioni.php"); exit; }
 
 $errore = "";
 
-// CRUD OPERAZIONE UPDATE 
+// controlla se il form di modifica è stato inviato
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // legge e pulisce i dati inviati dal form
     $nome    = trim($_POST["nome"]    ?? "");
     $cognome = trim($_POST["cognome"] ?? "");
     $email   = trim($_POST["email"]   ?? "");
@@ -24,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($nome === "" || $email === "" || $importo === "") {
         $errore = "Compila tutti i campi obbligatori.";
     } else {
+        // aggiorna il record nel database con i nuovi valori
         $stmt = $pdo->prepare("UPDATE donazioni SET nome=?, cognome=?, email=?, importo=? WHERE id=?");
         $stmt->execute([$nome, $cognome, $email, $importo, $id]);
         header("Location: gestione_donazioni.php");
@@ -47,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .admin-bar a:hover { text-decoration:underline; }
 
         header { background-color:#bb1e1e; color:white; padding:24px 20px 20px; text-align:center; }
-        header h1 { font-size:2rem; margin-bottom:6px; }
-        header p  { opacity:.85; }
+        header h1 { font-size:2rem; margin-bottom:6px; color: white; }
+        header p  { opacity:.85; color: white; }
 
         main { display:flex; flex-direction:column; align-items:center; padding:40px 20px 60px; }
 
@@ -57,100 +61,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .form-container h2 { font-size:1.1rem; color:#555; margin-bottom:22px; padding-bottom:10px; border-bottom:2px solid #e0e0e0; }
         .form-container h2 span { background-color:#bb1e1e; color:white; border-radius:20px; padding:3px 10px; font-size:.8rem; font-weight:bold; margin-left:8px; vertical-align:middle; }
 
-<<<<<<< HEAD
         .form-container label { display:block; font-weight:bold; font-size:.9rem; color:#555; margin-bottom:5px; }
         .form-container input { width:100%; padding:10px; margin-bottom:18px; border-radius:5px; border:1px solid #ccc; font-size:.95rem; box-sizing:border-box; }
         .form-container input:focus { outline:none; border-color:#bb1e1e; }
         .form-container button { width:100%; padding:12px; background-color:#bb1e1e; color:white; border:none; border-radius:5px; font-size:1rem; font-weight:bold; cursor:pointer; transition:background-color .3s; }
         .form-container button:hover { background-color:#a01919; }
-=======
-        /* card form */
-        .form-container {
-            width: 100%;
-            max-width: 500px;
-            background-color: #f9f9f9;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
->>>>>>> 9e5b3712a5ed04c420fbbbc7af2fd73242038a0b
 
         .errore { background:#fdecea; border-left:4px solid #bb1e1e; color:#c0392b; padding:10px 14px; border-radius:5px; margin-bottom:18px; font-size:.9rem; }
 
         .home-button { display:inline-block; margin-top:24px; padding:12px 24px; background-color:#bb1e1e; color:white; text-decoration:none; border-radius:5px; font-weight:bold; transition:background-color .3s; }
         .home-button:hover { background-color:#a01919; }
 
-<<<<<<< HEAD
         footer { background-color:#222; color:#ccc; text-align:center; padding:20px; font-size:.9rem; }
-=======
-        .form-container label {
-            display: block;
-            font-weight: bold;
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 5px;
-        }
-
-        .form-container input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 18px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 0.95rem;
-            transition: border-color 0.2s ease;
-        }
-
-        .form-container input:focus {
-            outline: none;
-            border-color: #bb1e1e;
-        }
-
-        .form-container button {
-            width: 100%;
-            padding: 12px;
-            background-color: #bb1e1e;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .form-container button:hover {
-            background-color: #a01919;
-        }
-
-        /* bottone torna indietro */
-        .home-button {
-            display: inline-block;
-            margin-top: 24px;
-            padding: 12px 24px;
-            background-color: #bb1e1e;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        .home-button:hover { background-color: #a01919; }
-
-        /*footer*/
-        footer {
-            background-color: #222;
-            color: #ccc;
-            text-align: center;
-            padding: 37px;
-            font-size: 0.9rem;
-        }
->>>>>>> 9e5b3712a5ed04c420fbbbc7af2fd73242038a0b
     </style>
 </head>
 <body>
 
+<!-- barra admin: mostra il nome dell'utente loggato letto dalla sessione -->
 <div class="admin-bar">
     👤 <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (admin) &nbsp;|&nbsp;
     <a href="gestione_donazioni.php"> Gestisci Donazioni</a>
@@ -172,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <form method="POST">
             <label for="nome">Nome: *</label>
+            <!-- value ripopola il campo con il dato attuale o con quello inviato in caso di errore -->
             <input type="text" id="nome" name="nome"
                    value="<?= htmlspecialchars($_POST["nome"] ?? $d["nome"]) ?>" required>
 
@@ -188,11 +116,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                    value="<?= htmlspecialchars($_POST["importo"] ?? $d["importo"]) ?>"
                    required min="1" step="0.01">
 
-            <button type="submit">💾 Salva modifiche</button>
+            <button type="submit"> Salva modifiche</button>
         </form>
     </div>
 
-    <a href="gestione_donazioni.php" class="home-button">← Torna all'elenco</a>
+    <a href="gestione_donazioni.php" class="home-button"> Torna all'elenco</a>
 </main>
 
 <footer>

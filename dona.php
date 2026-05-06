@@ -16,6 +16,15 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: Arial, sans-serif; }
 
+        header {
+            background-color: #bb1e1e;
+            color: white;
+            padding: 24px 20px 20px;
+            text-align: center;
+        }
+        header h1 { font-size: 2rem; margin-bottom: 6px; color: white; }
+        header h2 { font-size: 1rem; opacity: .85; color: white; font-weight: normal; }
+
         .admin-bar {
             background: #222;
             color: #eee;
@@ -105,7 +114,7 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 <?php if ($loggato): ?>
     <!-- barra admin visibile solo se l'utente è loggato: personalizzazione dell'interfaccia in base ai permessi -->
     <div class="admin-bar">
-        👤 Loggato come <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (admin)
+        👤 Sei loggato come <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (admin)
         &nbsp;|&nbsp;
         <a href="gestione_donazioni.php"> Gestisci Donazioni</a>
         <a href="logout.php"> Logout</a>
@@ -113,8 +122,8 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 <?php endif; ?>
 
 <header>
-    <h1 style="text-align:center;">Dona Ora</h1>
-    <h2 id="test2" style="text-align:center;">Sostieni la nostra causa con una donazione</h2>
+    <h1>Dona Ora</h1>
+    <h2 id="test2">Sostieni la nostra causa con una donazione</h2>
 </header>
 
 <main>
@@ -144,7 +153,7 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
     <a href="index.html" class="home-button">Torna alla Home</a>
 
     <!-- questo bottone porta al login: solo dopo aver inserito le credenziali admin si accede alla gestione -->
-    <a href="login.php" class="home-button">Area Admin</a>
+    <a href="login.php" class="home-button"> Area Admin</a>
 </main>
 
 <footer>

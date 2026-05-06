@@ -58,8 +58,8 @@ if (empty($errore) && isset($_GET["errore"]) && $_GET["errore"] === "accesso_neg
             padding: 24px 20px 20px;
             text-align: center;
         }
-        header h1 { font-size: 2rem; margin-bottom: 6px; }
-        header p  { font-size: 1rem; opacity: .85; }
+        header h1 { font-size: 2rem; margin-bottom: 6px; color: white; }
+        header p  { font-size: 1rem; opacity: .85; color: white; }
 
         main {
             display: flex;
@@ -169,7 +169,7 @@ if (empty($errore) && isset($_GET["errore"]) && $_GET["errore"] === "accesso_neg
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
 
-            <button type="submit">Accedi</button>
+            <button type="submit"> Accedi</button>
         </form>
     </div>
 

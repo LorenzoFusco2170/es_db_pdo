@@ -34,8 +34,8 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
         .admin-bar a:hover { text-decoration:underline; }
 
         header { background-color: #bb1e1e; color: white; padding: 24px 20px 20px; text-align: center; }
-        header h1 { font-size: 2rem; margin-bottom: 6px; }
-        header p  { opacity: .85; }
+        header h1 { font-size: 2rem; margin-bottom: 6px; color: white; }
+        header p  { opacity: .85; color: white; }
 
         main { display: flex; flex-direction: column; align-items: center; padding: 40px 20px 60px; }
 
@@ -86,20 +86,20 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
     <!-- barra admin visibile solo se l'utente è loggato -->
     <div class="admin-bar">
         👤 <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (admin) &nbsp;|&nbsp;
-        <a href="gestione_donazioni.php"> Gestisci Donazioni</a>
+        <a href="gestione_donazioni.php">📋 Gestisci Donazioni</a>
         <a href="logout.php"> Logout</a>
     </div>
 <?php endif; ?>
 
 <header>
-    <h1>Grazie di cuore!</h1>
+    <h1>Grazie!</h1>
     <p>La tua donazione è stata registrata con successo</p>
 </header>
 
 <main>
     <div class="card">
-        <div class="icona">Fatto</div>
-        <h2>Donazione ricevuta con successo!</h2>
+        <div class="icona">Riepilogo:</div>
+        <h2>Donazione ricevuta!</h2>
         <p>Grazie <strong><?= htmlspecialchars($d["nome"]) ?></strong>, il tuo contributo fa la differenza.</p>
 
         <!-- riepilogo con i dati passati tramite sessione da invia.php -->
