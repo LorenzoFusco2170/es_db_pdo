@@ -143,13 +143,13 @@ if (empty($errore) && isset($_GET["errore"]) && $_GET["errore"] === "accesso_neg
 <body>
 
 <header>
-    <h1>🔐 Area Riservata</h1>
+    <h1>Area Riservata</h1>
     <p>Accesso consentito solo agli amministratori</p>
 </header>
 
 <main>
     <div class="form-container">
-        <h2>Login Admin</h2>
+        <h2>Login</h2>
 
         <?php if ($errore): ?>
             <div class="errore"> <?= htmlspecialchars($errore) ?></div>

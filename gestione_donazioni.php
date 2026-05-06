@@ -73,10 +73,10 @@ $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <!-- BARRA ADMIN PERSONALIZZATA IN BASE AI PERMESSI -->
 <div class="admin-bar">
-    👤 Loggato come <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (<?= htmlspecialchars($_SESSION["ruolo"]) ?>)
+    👤 Sei loggato come <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (<?= htmlspecialchars($_SESSION["ruolo"]) ?>)
     &nbsp;|&nbsp;
-    <a href="dona.php"> Pagina Donazioni</a>
-    <a href="logout.php"> Logout</a>
+    <a href="dona.php">Pagina Donazioni</a>
+    <a href="logout.php">Logout</a>
 </div>
 
 <header>

@@ -80,7 +80,7 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 <div class="admin-bar">
     👤 <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (admin) &nbsp;|&nbsp;
     <a href="gestione_donazioni.php">📋 Gestisci Donazioni</a>
-    <a href="logout.php">🚪 Logout</a>
+    <a href="logout.php">Logout</a>
 </div>
 <?php endif; ?>
 
@@ -91,8 +91,8 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 
 <main>
     <div class="card">
-        <div class="icona">🎉</div>
-        <h2>Donazione ricevuta!</h2>
+        <div class="icona">Grazie di cuore</div>
+        <h2>Donazione ricevuta con successo!</h2>
         <p>Grazie <strong><?= htmlspecialchars($d["nome"]) ?></strong>, il tuo contributo fa la differenza.</p>
 
         <!-- DATI PASSATI TRA PAGINE TRAMITE SESSIONE -->
@@ -107,8 +107,8 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
             Riceverai una conferma all'indirizzo <em><?= htmlspecialchars($d["email"]) ?></em>.
         </p>
 
-        <a href="index.html" class="home-button">🏠 Torna alla Home</a>
-        <a href="dona.php"   class="home-button">💝 Dona ancora</a>
+        <a href="index.html" class="home-button">Torna alla Home</a>
+        <a href="dona.php"   class="home-button">Dona ancora</a>
     </div>
 </main>
 
