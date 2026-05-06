@@ -92,14 +92,14 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 <?php endif; ?>
 
 <header>
-    <h1>Grazie!</h1>
+    <h1>Grazie di cuore!</h1>
     <p>La tua donazione è stata registrata con successo</p>
 </header>
 
 <main>
     <div class="card">
-        <div class="icona">🎉</div>
-        <h2>Donazione ricevuta!</h2>
+        <div class="icona">Fatto</div>
+        <h2>Donazione ricevuta con successo!</h2>
         <p>Grazie <strong><?= htmlspecialchars($d["nome"]) ?></strong>, il tuo contributo fa la differenza.</p>
 
         <!-- riepilogo con i dati passati tramite sessione da invia.php -->
