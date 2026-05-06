@@ -57,18 +57,96 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .form-container h2 { font-size:1.1rem; color:#555; margin-bottom:22px; padding-bottom:10px; border-bottom:2px solid #e0e0e0; }
         .form-container h2 span { background-color:#bb1e1e; color:white; border-radius:20px; padding:3px 10px; font-size:.8rem; font-weight:bold; margin-left:8px; vertical-align:middle; }
 
+<<<<<<< HEAD
         .form-container label { display:block; font-weight:bold; font-size:.9rem; color:#555; margin-bottom:5px; }
         .form-container input { width:100%; padding:10px; margin-bottom:18px; border-radius:5px; border:1px solid #ccc; font-size:.95rem; box-sizing:border-box; }
         .form-container input:focus { outline:none; border-color:#bb1e1e; }
         .form-container button { width:100%; padding:12px; background-color:#bb1e1e; color:white; border:none; border-radius:5px; font-size:1rem; font-weight:bold; cursor:pointer; transition:background-color .3s; }
         .form-container button:hover { background-color:#a01919; }
+=======
+        /* card form */
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+>>>>>>> 9e5b3712a5ed04c420fbbbc7af2fd73242038a0b
 
         .errore { background:#fdecea; border-left:4px solid #bb1e1e; color:#c0392b; padding:10px 14px; border-radius:5px; margin-bottom:18px; font-size:.9rem; }
 
         .home-button { display:inline-block; margin-top:24px; padding:12px 24px; background-color:#bb1e1e; color:white; text-decoration:none; border-radius:5px; font-weight:bold; transition:background-color .3s; }
         .home-button:hover { background-color:#a01919; }
 
+<<<<<<< HEAD
         footer { background-color:#222; color:#ccc; text-align:center; padding:20px; font-size:.9rem; }
+=======
+        .form-container label {
+            display: block;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-container input:focus {
+            outline: none;
+            border-color: #bb1e1e;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #bb1e1e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #a01919;
+        }
+
+        /* bottone torna indietro */
+        .home-button {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 12px 24px;
+            background-color: #bb1e1e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover { background-color: #a01919; }
+
+        /*footer*/
+        footer {
+            background-color: #222;
+            color: #ccc;
+            text-align: center;
+            padding: 37px;
+            font-size: 0.9rem;
+        }
+>>>>>>> 9e5b3712a5ed04c420fbbbc7af2fd73242038a0b
     </style>
 </head>
 <body>
