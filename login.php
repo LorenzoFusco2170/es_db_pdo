@@ -1,30 +1,34 @@
 <?php
-// ── 4) SESSIONE ───────────────────────────────────────────────────────────────
+// avvia la sessione per poter salvare i dati dell'utente dopo il login
 session_start();
+require "database.php";
 
-// Se già loggato, vai diretto alla gestione
+// se l'utente è già loggato non ha senso mostrargli il login, lo mandiamo direttamente alla gestione
 if (isset($_SESSION["utente"])) {
     header("Location: gestione_donazioni.php");
     exit;
 }
 
-// ── 2) CREDENZIALI ADMIN (hardcoded, senza hashing) ──────────────────────────
+// credenziali admin definite come costanti per facilità di modifica
 define("ADMIN_USER", "admin");
 define("ADMIN_PASS", "1234");
 
 $errore = "";
 
+// controlla se il form è stato inviato
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // legge e pulisce i valori inviati dal form
     $username = trim($_POST["username"] ?? "");
     $password = $_POST["password"] ?? "";
 
     if ($username === "" || $password === "") {
         $errore = "Compila tutti i campi.";
     } elseif ($username === ADMIN_USER && $password === ADMIN_PASS) {
-        // ── 4) SALVO DATI IN SESSIONE ─────────────────────────────────────────
+        // le credenziali sono corrette: salva i dati dell'utente in sessione
         $_SESSION["utente"] = "admin";
         $_SESSION["ruolo"]  = "admin";
         $_SESSION["nome"]   = "Amministratore";
+        // reindirizza alla pagina protetta
         header("Location: gestione_donazioni.php");
         exit;
     } else {
@@ -32,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Messaggio da URL (es. accesso_negato)
+// mostra un messaggio di errore se l'utente ha tentato di accedere a una pagina protetta senza login
 if (empty($errore) && isset($_GET["errore"]) && $_GET["errore"] === "accesso_negato") {
     $errore = "Devi effettuare il login come admin per accedere a quella pagina.";
 }
@@ -143,31 +147,33 @@ if (empty($errore) && isset($_GET["errore"]) && $_GET["errore"] === "accesso_neg
 <body>
 
 <header>
-    <h1>Area Riservata</h1>
+    <h1> Area Riservata</h1>
     <p>Accesso consentito solo agli amministratori</p>
 </header>
 
 <main>
     <div class="form-container">
-        <h2>Login</h2>
+        <h2>Login Admin</h2>
 
         <?php if ($errore): ?>
+            <!-- mostra il messaggio di errore se le credenziali sono errate o mancanti -->
             <div class="errore"> <?= htmlspecialchars($errore) ?></div>
         <?php endif; ?>
 
         <form method="POST">
             <label for="username">Username:</label>
+            <!-- value ripopola il campo se il form viene reinviato con errori -->
             <input type="text" id="username" name="username"
                    value="<?= htmlspecialchars($_POST["username"] ?? "") ?>" required autofocus>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
 
-            <button type="submit"> Accedi</button>
+            <button type="submit">Accedi</button>
         </form>
     </div>
 
-    <a href="index.html" class="home-button">← Torna alla Home</a>
+    <a href="index.html" class="home-button"> Torna alla Home</a>
 </main>
 
 <footer>

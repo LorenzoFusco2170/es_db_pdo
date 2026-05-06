@@ -1,6 +1,8 @@
 <?php
-// SESSIONE
+// avvia la sessione per controllare se l'utente è già loggato come admin
 session_start();
+
+// controlla se l'utente è loggato con ruolo admin per personalizzare l'interfaccia
 $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 ?>
 <!DOCTYPE html>
@@ -14,7 +16,6 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: Arial, sans-serif; }
 
-        /* barra admin visibile solo se loggato */
         .admin-bar {
             background: #222;
             color: #eee;
@@ -101,14 +102,14 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 </head>
 <body>
 
-<!-- INTERFACCIA PERSONALIZZATA IN BASE AI PERMESSI -->
 <?php if ($loggato): ?>
-<div class="admin-bar">
-    👤 Loggato come <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (admin)
-    &nbsp;|&nbsp;
-    <a href="gestione_donazioni.php"> Gestisci Donazioni</a>
-    <a href="logout.php"> Logout</a>
-</div>
+    <!-- barra admin visibile solo se l'utente è loggato: personalizzazione dell'interfaccia in base ai permessi -->
+    <div class="admin-bar">
+        👤 Loggato come <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (admin)
+        &nbsp;|&nbsp;
+        <a href="gestione_donazioni.php"> Gestisci Donazioni</a>
+        <a href="logout.php"> Logout</a>
+    </div>
 <?php endif; ?>
 
 <header>
@@ -118,6 +119,7 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 
 <main>
     <div class="form-container">
+        <!-- il form invia i dati a invia.php che li salva nel database e manda l'email -->
         <form id="donationForm" action="invia.php" method="POST">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
@@ -141,8 +143,8 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 
     <a href="index.html" class="home-button">Torna alla Home</a>
 
-    <!-- bottone admin che richiede login per accedere -->
-    <a href="login.php" class="home-button"> Area Admin</a>
+    <!-- questo bottone porta al login: solo dopo aver inserito le credenziali admin si accede alla gestione -->
+    <a href="login.php" class="home-button">Area Admin</a>
 </main>
 
 <footer>
@@ -150,6 +152,7 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 </footer>
 
 <script>
+    // mostra il messaggio di ringraziamento quando il form viene inviato
     document.getElementById('donationForm').addEventListener('submit', function() {
         document.getElementById('thankYouMsg').style.display = 'block';
     });

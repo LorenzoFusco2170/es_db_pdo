@@ -1,15 +1,21 @@
 <?php
-// SESSIONE che legge i dati donazione salvati da invia.php
+// avvia la sessione per leggere i dati della donazione appena effettuata
 session_start();
 
+// se non ci sono dati in sessione significa che l'utente ha aperto questa pagina direttamente
+// senza passare dal form: lo rimandiamo alla pagina di donazione
 if (!isset($_SESSION["ultima_donazione"])) {
     header("Location: dona.php");
     exit;
 }
 
+// legge i dati salvati in sessione da invia.php
 $d = $_SESSION["ultima_donazione"];
-unset($_SESSION["ultima_donazione"]); // messaggio one time
 
+// cancella i dati dalla sessione dopo averli letti: servivano solo per questo messaggio una tantum
+unset($_SESSION["ultima_donazione"]);
+
+// controlla se l'utente è admin per mostrare eventualmente la barra di amministrazione
 $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 ?>
 <!DOCTYPE html>
@@ -77,11 +83,12 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 <body>
 
 <?php if ($loggato): ?>
-<div class="admin-bar">
-    👤 <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (admin) &nbsp;|&nbsp;
-    <a href="gestione_donazioni.php">📋 Gestisci Donazioni</a>
-    <a href="logout.php">Logout</a>
-</div>
+    <!-- barra admin visibile solo se l'utente è loggato -->
+    <div class="admin-bar">
+        👤 <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (admin) &nbsp;|&nbsp;
+        <a href="gestione_donazioni.php"> Gestisci Donazioni</a>
+        <a href="logout.php"> Logout</a>
+    </div>
 <?php endif; ?>
 
 <header>
@@ -91,14 +98,15 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
 
 <main>
     <div class="card">
-        <div class="icona">Grazie di cuore</div>
-        <h2>Donazione ricevuta con successo!</h2>
+        <div class="icona">🎉</div>
+        <h2>Donazione ricevuta!</h2>
         <p>Grazie <strong><?= htmlspecialchars($d["nome"]) ?></strong>, il tuo contributo fa la differenza.</p>
 
-        <!-- DATI PASSATI TRA PAGINE TRAMITE SESSIONE -->
+        <!-- riepilogo con i dati passati tramite sessione da invia.php -->
         <div class="riepilogo">
             <strong>Nome:</strong> <?= htmlspecialchars($d["nome"]) ?> <?= htmlspecialchars($d["cognome"]) ?><br>
             <strong>Email:</strong> <?= htmlspecialchars($d["email"]) ?><br>
+            <!-- number_format formatta il numero con 2 decimali e separatori italiani -->
             <strong>Importo:</strong> € <?= number_format((float)$d["importo"], 2, ',', '.') ?><br>
             <strong>Data:</strong> <?= htmlspecialchars($d["data"]) ?>
         </div>
@@ -107,8 +115,8 @@ $loggato = isset($_SESSION["utente"]) && $_SESSION["ruolo"] === "admin";
             Riceverai una conferma all'indirizzo <em><?= htmlspecialchars($d["email"]) ?></em>.
         </p>
 
-        <a href="index.html" class="home-button">Torna alla Home</a>
-        <a href="dona.php"   class="home-button">Dona ancora</a>
+        <a href="index.html" class="home-button"> Torna alla Home</a>
+        <a href="dona.php"   class="home-button"> Dona ancora</a>
     </div>
 </main>
 

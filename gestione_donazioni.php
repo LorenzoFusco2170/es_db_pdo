@@ -1,9 +1,10 @@
 <?php
-// LOGIN E SESSIONE 
-require_once "auth.php";    //nega l'accesso se non sei admin
+// include il file che controlla se l'utente è loggato come admin
+// se non lo è, viene rimandato automaticamente al login
+require_once "auth.php";
 require_once "database.php";
 
-// CRUD OPERAZIONE READ 
+// recupera tutte le donazioni dal database ordinate dalla più recente
 $stmt = $pdo->query("SELECT * FROM donazioni ORDER BY id DESC");
 $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -18,7 +19,6 @@ $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; }
 
-        /* barra admin */
         .admin-bar { background:#222; color:#eee; text-align:center; padding:10px; font-size:.9rem; }
         .admin-bar a { color:#ff9999; font-weight:bold; text-decoration:none; margin:0 10px; }
         .admin-bar a:hover { text-decoration:underline; }
@@ -71,12 +71,12 @@ $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<!-- BARRA ADMIN PERSONALIZZATA IN BASE AI PERMESSI -->
+<!-- barra admin: mostra il nome dell'utente loggato letto dalla sessione -->
 <div class="admin-bar">
     👤 Sei loggato come <strong><?= htmlspecialchars($_SESSION["nome"]) ?></strong> (<?= htmlspecialchars($_SESSION["ruolo"]) ?>)
     &nbsp;|&nbsp;
-    <a href="dona.php">Pagina Donazioni</a>
-    <a href="logout.php">Logout</a>
+    <a href="dona.php"> Pagina Donazioni</a>
+    <a href="logout.php"> Logout</a>
 </div>
 
 <header>
@@ -88,10 +88,12 @@ $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="table-card">
         <div class="table-card-header">
             <h2>Donazioni registrate</h2>
+            <!-- count() conta quante donazioni sono state recuperate dal database -->
             <span class="badge"><?= count($donazioni) ?> totale</span>
         </div>
 
         <?php if (count($donazioni) > 0):
+            // array_column estrae solo la colonna "importo" e array_sum ne fa la somma
             $totale = array_sum(array_column($donazioni, "importo"));
         ?>
         <table>
@@ -109,6 +111,7 @@ $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tbody>
                 <?php foreach ($donazioni as $d): ?>
                 <tr>
+                    <!-- htmlspecialchars evita che eventuali caratteri speciali nel db causino problemi html -->
                     <td>#<?= htmlspecialchars($d["id"]) ?></td>
                     <td><?= htmlspecialchars($d["nome"]) ?></td>
                     <td><?= htmlspecialchars($d["cognome"] ?? "") ?></td>
@@ -116,7 +119,7 @@ $donazioni = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td class="importo">€ <?= number_format((float)$d["importo"], 2, ',', '.') ?></td>
                     <td><?= htmlspecialchars($d["data"] ?? "") ?></td>
                     <td>
-                        <!-- CRUD OPERAZIONI DI UPDATE E DELETE -->
+                        <!-- i link passano l'id della donazione tramite query string per identificarla -->
                         <a class="action-link modifica" href="modifica_donazione.php?id=<?= $d["id"] ?>">✏ Modifica</a>
                         <a class="action-link elimina"  href="elimina_donazione.php?id=<?= $d["id"] ?>"
                            onclick="return confirm('Eliminare la donazione #<?= $d["id"] ?>?')">✕ Elimina</a>
